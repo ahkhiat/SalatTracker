@@ -13,12 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +36,9 @@ import org.koin.androidx.compose.koinViewModel
 import com.devid_academy.salattracker.logic.data.dto.PrayerDTO
 import com.devid_academy.salattracker.ui.mainscreen.CalendarCase
 import com.devid_academy.salattracker.ui.mainscreen.PrayerItem
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun MainScreen(
@@ -40,7 +46,6 @@ fun MainScreen(
 ) {
 
     val viewModel: MainViewModel = koinViewModel()
-
     val prayersList = viewModel.prayersList.collectAsState().value
 
     LaunchedEffect(prayersList) {
@@ -53,13 +58,20 @@ fun MainScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun MainContent() {
+    val selectedDate = remember { mutableStateOf(LocalDate.now()) }
+
+    val formatter = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.FRANCE)
+    val formattedDate = selectedDate.value.format(formatter).replaceFirstChar { it.uppercase() }
+
     ScaffoldComposable (
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
         topBar = {
-            TopAppBar(
-                title = { Text("Ma TopBar") }
+            CenterAlignedTopAppBar(
+                title = { Text(
+                    text = formattedDate
+                ) }
             )
         },
         bottomBar = {
@@ -72,18 +84,25 @@ private fun MainContent() {
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                LazyRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                ) {
-                    items(30) { index ->
-                        CalendarCase(
-                            day = "Lun",
-                            date = index.toString()
-                        )
+//                LazyRow(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(8.dp)
+//                ) {
+//                    items(30) { index ->
+//                        CalendarCase(
+//                            day = "Lun",
+//                            date = index.toString()
+//                        )
+//                    }
+//                }
+                CalendarBar(
+                    selectedDate = selectedDate.value,
+                    onDateSelected = { newDate ->
+                        selectedDate.value = newDate
+//                        viewModel.loadStatusesFromApi(newDate)
                     }
-                }
+                )
 
                 Column(
                     modifier = Modifier
