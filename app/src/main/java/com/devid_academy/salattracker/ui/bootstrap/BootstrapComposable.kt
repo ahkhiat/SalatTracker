@@ -31,8 +31,11 @@ fun BootstrapComposable() {
             AuthenticatedNavHost(navController)
         }
         AuthentificationStateEnum.LOGGED_OUT -> {
-//            UnauthenticatedNavHost(navController)
-            AuthenticatedNavHost(navController)
+            UnauthenticatedNavHost(navController)
+
+            // test only
+            // erase when login works
+//            AuthenticatedNavHost(navController)
 
         }
     }

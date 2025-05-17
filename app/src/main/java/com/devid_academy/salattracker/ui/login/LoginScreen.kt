@@ -75,11 +75,11 @@ fun LoginContent(
                 .align(Alignment.TopCenter)
                 .padding(top = 100.dp)
         ) {
-//            Text(
-//                text = stringResource(R.string.register_et_email_label),
-//                fontSize = 24.sp,
-//                textAlign = TextAlign.Center
-//            )
+            Text(
+                text = stringResource(R.string.register_et_email_label),
+                fontSize = 24.sp,
+                textAlign = TextAlign.Center
+            )
             InputFormTextField(
                 value = emailForm,
                 onValueChange = { emailForm = it },
@@ -87,11 +87,11 @@ fun LoginContent(
                 keyboardType = KeyboardType.Email
             )
             Spacer(modifier = Modifier.height(20.dp))
-//            Text(
-//                text = stringResource(R.string.register_et_password_label),
-//                fontSize = 24.sp,
-//                textAlign = TextAlign.Center
-//            )
+            Text(
+                text = stringResource(R.string.register_et_password_label),
+                fontSize = 24.sp,
+                textAlign = TextAlign.Center
+            )
             InputFormTextField(
                 value = passwordForm,
                 onValueChange = { passwordForm = it },
