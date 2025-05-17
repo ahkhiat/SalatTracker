@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">SalatTracker</string>
+
+    <!--  Register -->
+    <string name="register_et_email">email</string>
+    <string name="register_et_password">password</string>
+    <string name="register_et_email_label">Your email:</string>
+    <string name="register_et_password_label">Choose a password:</string>
+    <string name="register_et_passwordconfirm">Confirm your password:</string>
+    <string name="register_et_passwordconfirm_label">Confirm your password:</string>
+    <string name="button_register">Sign up!</string>
+    <string name="button_login">Sign in!</string>
+
+    <string name="already_registered">Already registered? Sign in!</string>
+    <string name="not_registered">Don\'t have an account? Sign up!</string>
+
+
 </resources>

@@ -3,6 +3,7 @@ package com.devid_academy.salattracker.di
 import com.devid_academy.salattracker.logic.data.network.SupabaseClient
 import com.devid_academy.salattracker.logic.data.repository.PrayerRepository
 import com.devid_academy.salattracker.logic.data.repository.UserRepository
+import com.devid_academy.salattracker.logic.viewmodel.LoginViewModel
 import com.devid_academy.salattracker.logic.viewmodel.MainViewModel
 import com.devid_academy.salattracker.logic.viewmodel.SplashViewModel
 import com.devid_academy.salattracker.logic.viewmodel.UserViewModel
@@ -21,4 +22,5 @@ val viewModelsModule = module {
     viewModel { UserViewModel(get()) }
     viewModel { SplashViewModel(get()) }
     viewModel { MainViewModel(get()) }
+    viewModel { LoginViewModel(get()) }
 }

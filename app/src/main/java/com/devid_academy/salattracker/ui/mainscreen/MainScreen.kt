@@ -52,12 +52,16 @@ fun MainScreen(
         Log.i("MAIN SCREEN", "MainScreen: $prayersList")
     }
 
-    MainContent()
+    MainContent(
+        prayersList = prayersList
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MainContent() {
+private fun MainContent(
+    prayersList: List<PrayerDTO>
+) {
     val selectedDate = remember { mutableStateOf(LocalDate.now()) }
 
     val formatter = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.FRANCE)
@@ -84,23 +88,10 @@ private fun MainContent() {
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-//                LazyRow(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(8.dp)
-//                ) {
-//                    items(30) { index ->
-//                        CalendarCase(
-//                            day = "Lun",
-//                            date = index.toString()
-//                        )
-//                    }
-//                }
                 CalendarBar(
                     selectedDate = selectedDate.value,
                     onDateSelected = { newDate ->
                         selectedDate.value = newDate
-//                        viewModel.loadStatusesFromApi(newDate)
                     }
                 )
 
@@ -111,56 +102,21 @@ private fun MainContent() {
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    PrayerItem(
-                        prayer = PrayerDTO(
-                            id = 1L,
-                            name = "Fajr",
-                            order = 1,
-                            type = "Obligatory"
-                        ),
-                        imageResId = R.drawable.salat_fajr, // exemple
-                        statusImageResId = R.drawable.status_undefined // exemple
-                    )
-                    PrayerItem(
-                        prayer = PrayerDTO(
-                            id = 1L,
-                            name = "Dhor",
-                            order = 1,
-                            type = "Obligatory"
-                        ),
-                        imageResId = R.drawable.salat_dhor, // exemple
-                        statusImageResId = R.drawable.status_undefined // exemple
-                    )
-                    PrayerItem(
-                        prayer = PrayerDTO(
-                            id = 1L,
-                            name = "Asr",
-                            order = 1,
-                            type = "Obligatory"
-                        ),
-                        imageResId = R.drawable.salat_asr, // exemple
-                        statusImageResId = R.drawable.status_undefined // exemple
-                    )
-                    PrayerItem(
-                        prayer = PrayerDTO(
-                            id = 1L,
-                            name = "Maghreb",
-                            order = 1,
-                            type = "Obligatory"
-                        ),
-                        imageResId = R.drawable.salat_maghreb, // exemple
-                        statusImageResId = R.drawable.status_undefined // exemple
-                    )
-                    PrayerItem(
-                        prayer = PrayerDTO(
-                            id = 1L,
-                            name = "Icha",
-                            order = 1,
-                            type = "Obligatory"
-                        ),
-                        imageResId = R.drawable.salat_icha, // exemple
-                        statusImageResId = R.drawable.status_undefined // exemple
-                    )
+                    Log.i("MAIN SCREEN", "MainContent: $prayersList")
+                    prayersList.forEach {
+                        PrayerItem(
+                            prayer = PrayerDTO(
+                                id = it.id,
+                                name = it.name,
+                                order = it.order,
+                                type = it.type
+                            ),
+                            imageResId = R.drawable.salat_fajr, // exemple
+                            statusImageResId = R.drawable.status_undefined // exemple
+                        )
+                    }
+
+
                 }
 
             }
@@ -172,7 +128,22 @@ private fun MainContent() {
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenPreview() {
-    MainContent()
+    MainContent(
+        prayersList = listOf(
+            PrayerDTO(
+                id = 1L,
+                name = "Fajr",
+                order = 1,
+                type = "Obligatory"
+            ),
+            PrayerDTO(
+                id = 2L,
+                name = "Dhor",
+                order = 2,
+                type = "Obligatory"
+            )
+        )
+    )
 //    CalendarCase(
 //        day = "Lun",
 //        date = "12"
